@@ -1,0 +1,1530 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mureka Knowledge</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+  <style>
+
+:root {
+  --mk-bg: #000000;
+  --mk-text-primary: #ffffff;
+  --mk-text-secondary: rgba(255, 255, 255, 0.7);
+  --mk-text-muted: rgba(255, 255, 255, 0.08);
+  --mk-accent: #48e1eb;
+  --mk-font-brand: "Space Grotesk", sans-serif;
+  --mk-font-body: "Plus Jakarta Sans", sans-serif;
+  --mk-page-width: 1440px;
+  --mk-sidebar-width: 240px;
+  --mk-sidebar-collapsed-width: 66px;
+  --mk-main-width: 1160px;
+  --mk-content-width: 800px;
+  --mk-page-gap: 40px;
+  --mk-main-padding: 24px;
+}
+html {
+  background: var(--mk-bg);
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--mk-bg);
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.mk-page {
+  width: var(--mk-page-width);
+  min-height: 100vh;
+  background: var(--mk-bg);
+  color: var(--mk-text-primary);
+  display: flex;
+  gap: var(--mk-page-gap);
+}
+.mk-page--sidebar-collapsed {
+  --mk-sidebar-width: var(--mk-sidebar-collapsed-width);
+  --mk-main-width: calc(var(--mk-page-width) - var(--mk-sidebar-collapsed-width) - var(--mk-page-gap));
+}
+.mk-sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  box-sizing: border-box;
+  width: var(--mk-sidebar-width);
+  padding: 24px 0;
+  flex: 0 0 var(--mk-sidebar-width);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.2s ease, flex-basis 0.2s ease;
+}
+.mk-sidebar-header {
+  height: 28px;
+  padding: 0 12px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.mk-logo {
+  height: 28px;
+  width: 102px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mk-text-primary);
+  flex: 0 0 102px;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+.mk-logo-mark {
+  width: 29px;
+  height: 29px;
+  flex: 0 0 29px;
+}
+.mk-logo-word {
+  font-family: var(--mk-font-brand);
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.mk-sidebar-toggle {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  flex: 0 0 16px;
+  opacity: 0.6;
+  background: transparent;
+  color: var(--mk-text-primary);
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+.mk-sidebar-toggle svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+.mk-sidebar-toggle:hover,
+.mk-sidebar-toggle:focus-visible {
+  opacity: 1;
+  background: var(--mk-text-muted);
+}
+.mk-sidebar-toggle:focus-visible {
+  outline: 1px solid var(--mk-accent);
+  outline-offset: 2px;
+}
+.mk-page--sidebar-collapsed .mk-sidebar-header {
+  justify-content: center;
+  padding: 0;
+}
+.mk-page--sidebar-collapsed .mk-logo {
+  display: none;
+}
+.mk-page--sidebar-collapsed .mk-nav {
+  display: none;
+}
+.mk-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.mk-nav::-webkit-scrollbar {
+  display: none;
+}
+.mk-nav-group,
+.mk-nav-children,
+.mk-nav-row {
+  flex-shrink: 0;
+}
+.mk-nav-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mk-nav-children {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.mk-nav-group--collapsed .mk-nav-children {
+  display: none;
+}
+.mk-nav-row {
+  box-sizing: border-box;
+  justify-content: space-between;
+  border-radius: 8px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mk-nav-row--level1 {
+  padding: 0 12px 0 16px;
+  border-radius: 12px;
+}
+.mk-nav-link {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+.mk-nav-row--level2 {
+  padding: 0 12px 0 28px;
+}
+.mk-nav-row--level3 {
+  padding: 0 12px 0 28px;
+}
+.mk-nav-row--level2:hover,
+.mk-nav-row--level3:hover {
+  background: var(--mk-text-muted);
+}
+.mk-nav-row--level1:hover .mk-nav-item,
+.mk-nav-row--level2:hover .mk-nav-item--level2,
+.mk-nav-row--level3:hover .mk-nav-item--level3 {
+  color: var(--mk-text-primary);
+}
+.mk-nav-caret {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  flex: 0 0 16px;
+  opacity: 0.6;
+  background: transparent;
+  color: var(--mk-text-primary);
+  cursor: pointer;
+  position: relative;
+}
+.mk-nav-caret::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 5px;
+  width: 7px;
+  height: 7px;
+  border-top: 1.2px solid currentColor;
+  border-right: 1.2px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform 160ms ease;
+}
+.mk-nav-group--collapsed .mk-nav-caret::before {
+  transform: rotate(135deg);
+}
+.mk-nav-caret:hover,
+.mk-nav-caret:focus-visible {
+  opacity: 1;
+}
+.mk-nav-caret:focus-visible {
+  outline: 1px solid var(--mk-accent);
+  outline-offset: 2px;
+}
+.mk-main {
+  box-sizing: border-box;
+  padding: var(--mk-main-padding);
+  min-height: 100vh;
+  width: var(--mk-main-width);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+.mk-section-anchor {
+  position: absolute;
+  height: 0;
+  overflow: hidden;
+}
+.mk-section-group {
+  width: var(--mk-content-width);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.mk-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.mk-section--level3 {
+  gap: 12px;
+}
+.mk-section--intro {
+  gap: 0;
+}
+.mk-title-group,
+.mk-content-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.mk-title {
+  font-family: var(--mk-font-brand);
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0;
+}
+.mk-title--level1 {
+  font-size: 36px;
+  line-height: 40px;
+}
+.mk-title--level2 {
+  font-size: 24px;
+  line-height: 30px;
+}
+.mk-title--level3 {
+  font-size: 16px;
+  line-height: 24px;
+}
+.mk-block-title {
+  font-family: var(--mk-font-body);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+  margin: 0;
+}
+.mk-subtitle,
+.mk-nav-item {
+  font-family: var(--mk-font-body);
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+}
+.mk-subtitle,
+.mk-body,
+.mk-nav-item--level2,
+.mk-nav-item--level3 {
+  color: var(--mk-text-secondary);
+}
+.mk-subtitle,
+.mk-body {
+  margin: 0;
+}
+.mk-body {
+  font-family: var(--mk-font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.15px;
+}
+.mk-subtitle--level3 {
+  font-size: 14px;
+  line-height: 20px;
+}
+.mk-body-list {
+  margin: 0;
+  padding-left: 1.25em;
+}
+.mk-body-list li + li {
+  margin-top: 8px;
+}
+.mk-nav-item {
+  font-weight: 500;
+  color: var(--mk-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mk-nav-item--level2 {
+  font-weight: 400;
+}
+.mk-nav-item--level3 {
+  position: relative;
+  font-weight: 400;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 18px;
+}
+.mk-nav-item--level3::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateY(-50%);
+}
+.mk-nav-item--active {
+  color: var(--mk-accent);
+}
+.mk-media-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 12px;
+}
+.mk-media-grid--stacked {
+  flex-direction: column;
+}
+.mk-media-figure {
+  margin: 0;
+  min-width: 0;
+  width: min(var(--mk-media-width), 100%);
+  max-width: 720px;
+}
+.mk-media-figure img,
+.mk-media-figure video {
+  display: block;
+  width: var(--mk-media-width);
+  height: var(--mk-media-height);
+  max-width: 100%;
+  max-height: 405px;
+  object-fit: contain;
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.mk-media-placeholder {
+  min-height: 160px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #0a0a0a;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  box-sizing: border-box;
+}
+.mk-media-kind {
+  font: 700 20px/32px var(--mk-font-brand);
+  color: var(--mk-text-primary);
+}
+
+  </style>
+</head>
+<body>
+  <div class="mk-page">
+    <aside class="mk-sidebar">
+      <div class="mk-sidebar-header">
+        <button class="mk-sidebar-toggle header-left-toggle fe-icon" type="button" aria-label="Toggle navigation" aria-expanded="true" data-sidebar-toggle><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7.955 8.45v7.1M7.45 4.9H7A4.1 4.1 0 0 0 2.9 9v6A4.1 4.1 0 0 0 7 19.1h10a4.1 4.1 0 0 0 4.1-4.1V9A4.1 4.1 0 0 0 17 4.9z"/></svg></button>
+      </div>
+      <nav class="mk-nav" aria-label="Knowledge navigation">
+      <div class="mk-nav-group" data-nav-group="create-music">
+        <div class="mk-nav-row mk-nav-row--level1" data-section-id="create-music"><a class="mk-nav-link" href="#create-music"><span class="mk-nav-item mk-nav-item--active">Create Music</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Create Music" aria-expanded="true" data-nav-toggle="create-music"></button></div>
+        <div class="mk-nav-children" data-nav-children="create-music">
+        <a class="mk-nav-row mk-nav-row--level2" href="#music-easy" data-section-id="music-easy"><span class="mk-nav-item mk-nav-item--level2">Easy Mode</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#music-custom" data-section-id="music-custom"><span class="mk-nav-item mk-nav-item--level2">Custom Mode</span></a>
+        <a class="mk-nav-row mk-nav-row--level3" href="#custom-lyrics" data-section-id="custom-lyrics"><span class="mk-nav-item mk-nav-item--level3">Lyrics Generation</span></a>
+        <a class="mk-nav-row mk-nav-row--level3" href="#custom-reference" data-section-id="custom-reference"><span class="mk-nav-item mk-nav-item--level3">Reference track</span></a>
+        <a class="mk-nav-row mk-nav-row--level3" href="#custom-remix" data-section-id="custom-remix"><span class="mk-nav-item mk-nav-item--level3">Remix</span></a>
+        <a class="mk-nav-row mk-nav-row--level3" href="#custom-vocal" data-section-id="custom-vocal"><span class="mk-nav-item mk-nav-item--level3">Vocal (Voice Clone)</span></a>
+        <a class="mk-nav-row mk-nav-row--level3" href="#custom-soundtrack" data-section-id="custom-soundtrack"><span class="mk-nav-item mk-nav-item--level3">Soundtrack</span></a>
+        </div>
+      </div>
+      <div class="mk-nav-group" data-nav-group="create-video">
+        <div class="mk-nav-row mk-nav-row--level1" data-section-id="create-video"><a class="mk-nav-link" href="#create-video"><span class="mk-nav-item">Create Video</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Create Video" aria-expanded="true" data-nav-toggle="create-video"></button></div>
+        <div class="mk-nav-children" data-nav-children="create-video">
+        <a class="mk-nav-row mk-nav-row--level2" href="#video-music" data-section-id="video-music"><span class="mk-nav-item mk-nav-item--level2">Create Music Video</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#video-lyrics" data-section-id="video-lyrics"><span class="mk-nav-item mk-nav-item--level2">Create Lyrics Video</span></a>
+        </div>
+      </div>
+      <div class="mk-nav-group" data-nav-group="studio">
+        <div class="mk-nav-row mk-nav-row--level1" data-section-id="studio"><a class="mk-nav-link" href="#studio"><span class="mk-nav-item">Studio</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Studio" aria-expanded="true" data-nav-toggle="studio"></button></div>
+        <div class="mk-nav-children" data-nav-children="studio">
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-add-stem-track" data-section-id="studio-add-stem-track"><span class="mk-nav-item mk-nav-item--level2">Add Stem Track</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-add-instrumental" data-section-id="studio-add-instrumental"><span class="mk-nav-item mk-nav-item--level2">Add Instrumental</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-add-vocal" data-section-id="studio-add-vocal"><span class="mk-nav-item mk-nav-item--level2">Add Vocal</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-extract-stems" data-section-id="studio-extract-stems"><span class="mk-nav-item mk-nav-item--level2">Extract Stems</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-replace" data-section-id="studio-replace"><span class="mk-nav-item mk-nav-item--level2">Replace</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#studio-extend" data-section-id="studio-extend"><span class="mk-nav-item mk-nav-item--level2">Extend</span></a>
+        </div>
+      </div>
+      <div class="mk-nav-group" data-nav-group="music-edit">
+        <div class="mk-nav-row mk-nav-row--level1" data-section-id="music-edit"><a class="mk-nav-link" href="#music-edit"><span class="mk-nav-item">Music Edit</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Music Edit" aria-expanded="true" data-nav-toggle="music-edit"></button></div>
+        <div class="mk-nav-children" data-nav-children="music-edit">
+        <a class="mk-nav-row mk-nav-row--level2" href="#edit-edit" data-section-id="edit-edit"><span class="mk-nav-item mk-nav-item--level2">Edit（Fine-Tune Regions）</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#edit-extend" data-section-id="edit-extend"><span class="mk-nav-item mk-nav-item--level2">Extend</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#edit-splitter" data-section-id="edit-splitter"><span class="mk-nav-item mk-nav-item--level2">Splitter</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#edit-trim" data-section-id="edit-trim"><span class="mk-nav-item mk-nav-item--level2">Trim｜Audio Trimming</span></a>
+        </div>
+      </div>
+      <div class="mk-nav-group" data-nav-group="mureka-co">
+        <div class="mk-nav-row mk-nav-row--level1" data-section-id="mureka-co"><a class="mk-nav-link" href="#mureka-co"><span class="mk-nav-item">Mureka Co</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Mureka Co" aria-expanded="true" data-nav-toggle="mureka-co"></button></div>
+        <div class="mk-nav-children" data-nav-children="mureka-co">
+        <a class="mk-nav-row mk-nav-row--level2" href="#co-daw-control" data-section-id="co-daw-control"><span class="mk-nav-item mk-nav-item--level2">Natural Language DAW Control</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#co-one-conversation" data-section-id="co-one-conversation"><span class="mk-nav-item mk-nav-item--level2">One Conversation, Every Capability</span></a>
+        <a class="mk-nav-row mk-nav-row--level2" href="#co-upload-file" data-section-id="co-upload-file"><span class="mk-nav-item mk-nav-item--level2">Upload Local Files and Create from Your Own Material</span></a>
+        </div>
+      </div>
+      </nav>
+    </aside>
+    <main class="mk-main">
+      <section class="mk-section-group">
+      <article class="mk-section mk-section--level1 mk-section--intro" id="create-music">
+        <div class="mk-title-group">
+          <h1 class="mk-title mk-title--level1">Create Music</h1>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level2" id="music-easy">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Easy Mode</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Chat with an AI co-producer to create songs — just describe what you want in natural language, and Mureka handles the rest.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Conversational creation: describe your idea in a sentence, Mureka generates a full song (lyrics + music)</li>
+            <li>AI understands context: follow up with refinements like &#34;make it more upbeat&#34; or &#34;change to female vocal&#34;</li>
+            <li>Quick starters: tap preset prompts like &#34;Make a beat&#34; to get started instantly</li>
+            <li>Auto-generates song title, lyrics and style descriptions</li>
+            <li>Supports choosing reference, vocal, and switching to instrumental-only mode</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Zero learning curve — no music knowledge needed, just talk to it like a friend</li>
+            <li>From idea to finished song in seconds to minutes</li>
+            <li>The fastest way to turn any moment (birthday, heartbreak, a random vibe) into a real song</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Each generation produces 2 song variants to choose from</li>
+            <li>Song length is typically 2–4 minutes</li>
+            <li>Conversation context is per-session; starting a new chat resets context</li>
+            <li>Currently supports text input only (no speech input in Easy mode)</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Create tab → Easy</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Open Easy mode → type &#34;Write a chill lo-fi track for studying&#34; → tap Send</li>
+            <li>Mureka generates a brief describing your song → automatically creates 2 versions</li>
+            <li>Listen, pick your favorite, then Publish or Remix/Edit further</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level2 mk-section--intro" id="music-custom">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Custom Mode</h2>
+          <p class="mk-subtitle mk-subtitle--level2">AI-powered lyrics writing tools — generate full song lyrics from a theme, or let AI optimize and rewrite your draft.</p>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level3" id="custom-lyrics">
+        <div class="mk-title-group">
+          <h3 class="mk-title mk-title--level3">Lyrics Generation</h3>
+          <p class="mk-subtitle mk-subtitle--level3">AI-powered lyrics writing tools — generate full song lyrics from a theme, or let AI optimize and rewrite your draft.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Generate Lyrics: create complete song lyrics from scratch based on a theme or prompt</li>
+            <li>Optimize: polish and improve existing lyrics while preserving the original meaning</li>
+            <li>Supports structured output with verse/chorus/bridge tags</li>
+            <li>Multi-language lyrics generation (English, Chinese, Japanese, Korean, Spanish, etc.)</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Overcome writer&#39;s block — get a full set of lyrics in seconds</li>
+            <li>Professional structure — AI follows songwriting conventions (verse-chorus-bridge)</li>
+            <li>Works as a creative partner — write your draft, then let AI polish it</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Generated lyrics are suggestions — you can freely edit them before creating the song</li>
+            <li>Lyrics quality depends on the clarity of your input prompt, and the writing capability of current technology</li>
+            <li>Very long or complex narrative lyrics may need manual adjustment</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Create Music → Custom tab → Lyrics input area → &#34;Generate Lyrics&#34; or &#34;Optimize&#34; button</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Switch to Custom mode → in the Lyrics box, click &#34;Generate Lyrics&#34;</li>
+            <li>Enter a theme like &#34;missing someone on a rainy night&#34; → AI generates full lyrics with [Verse], [Chorus], [Bridge] structure</li>
+            <li>Edit any lines you want to change → click &#34;Optimize&#34; to polish the final version</li>
+            <li>Proceed to set Style, Vocal Gender, and hit Create</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level3" id="custom-reference">
+        <div class="mk-title-group">
+          <h3 class="mk-title mk-title--level3">Reference track</h3>
+          <p class="mk-subtitle mk-subtitle--level3">Upload an audio file as a style reference — Mureka analyzes its sonic characteristics and creates a new original song inspired by it.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Upload any audio file (MP3, WAV, etc.) as a reference</li>
+            <li>AI analyzes the reference&#39;s genre, tempo, mood, and instrumentation</li>
+            <li>Generates a brand-new original song that captures a similar vibe — not a copy</li>
+            <li>Combines with your lyrics and style inputs for maximum control</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>&#34;Sound like this but original&#34; — bridge the gap between what you hear in your head and what you can describe in words</li>
+            <li>Great for producers who work with mood boards and sonic references</li>
+            <li>Legally safe — generates original compositions, not copies</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Reference is for style inspiration only — the output will NOT replicate the original song</li>
+            <li>Audio files up to 100MB, duration 10s–10min</li>
+            <li>Works best with clear, well-mixed reference tracks</li>
+            <li>The AI interprets style loosely. Results may vary from the reference</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Create Music → Custom tab → &#34;+ Reference&#34; button at the top</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Click &#34;+ Reference&#34; → upload an audio file you like</li>
+            <li>AI extracts style tags from the reference (e.g., &#34;Indie Pop, Acoustic Guitar, 110 BPM&#34;)</li>
+            <li>Write or generate your own lyrics → hit Create</li>
+            <li>The generated song will capture a similar feel to your reference but with original composition</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level3" id="custom-remix">
+        <div class="mk-title-group">
+          <h3 class="mk-title mk-title--level3">Remix</h3>
+          <p class="mk-subtitle mk-subtitle--level3">Upload a song and transform it into a completely new style while keeping the melody and lyrics.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Upload an existing song (your own or from Mureka library)</li>
+            <li>AI preserves the core melody and lyrics while re-arranging in a new style</li>
+            <li>Define the target style (e.g., turn a pop ballad into an EDM banger)</li>
+            <li>Choose whether to keep original vocals or generate new ones</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Breathe new life into existing songs — hear your favorite melody in a totally different genre</li>
+            <li>Perfect for content creators who need style variations of the same song</li>
+            <li>Explore unexpected combinations — turn folk into drum &amp; bass, rock into ambient</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Audio files up to 100MB; songs longer than 4 minutes may be trimmed</li>
+            <li>The output is a reinterpretation, not a precise genre transfer</li>
+            <li>Some extreme genre transformations (e.g., classical → heavy metal) may produce unexpected results</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Create Music → Custom tab → &#34;+ Remix&#34; button at the top; also available from any song&#39;s &#34;Remix/Edit&#34; dropdown</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Click &#34;+ Remix&#34; → upload your song or select one from Library</li>
+            <li>Define the target style in the Style field (e.g., &#34;Lo-fi hip-hop, chill, vinyl crackle&#34;)</li>
+            <li>Hit Create → Mureka generates a remixed version preserving the original&#39;s melody and lyrics</li>
+            <li>Compare with the original, publish or continue editing</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level3" id="custom-vocal">
+        <div class="mk-title-group">
+          <h3 class="mk-title mk-title--level3">Vocal (Voice Clone)</h3>
+          <p class="mk-subtitle mk-subtitle--level3">Upload a voice sample to create a personalized AI vocal — use it to sing any song you create on Mureka.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Import a song with clear or a cappella vocals, or record your own singing, as a voice reference to create a fixed singer Character.</li>
+            <li>Use songs you&#39;ve created on the platform to extract the voice and generate a fixed singer Character.</li>
+            <li>Upload an image as the Character&#39;s look, used to promote future songs.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Use a fixed singer Character to sing all your songs</li>
+            <li>The singer Character&#39;s look can generate custom music videos</li>
+            <li>Characters can be discovered and used by others, enabling remix creation and interaction</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>The Character&#39;s voice can be used with a music reference and prompts, but it will mainly follow the Character&#39;s own traits.</li>
+            <li>The Character&#39;s voice only serves as a reference for vocal timbre during generation; it does not set vocal range, melody, or genre.</li>
+            <li>The Character voice currently supports lead melody only; harmony, backing vocals, humming, and other forms aren&#39;t supported yet.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Tap Create, tap the +Vocal button, and select a Character to have it sing your newly generated song.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/custom-vocal-how_to_use-1-1.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level3" id="custom-soundtrack">
+        <div class="mk-title-group">
+          <h3 class="mk-title mk-title--level3">Soundtrack</h3>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <p class="mk-body">In &#34;Soundtrack&#34; mode, users can upload a video/image and generate matching music with one tap.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Upload a video or image, and AI reads the scene and mood to generate a custom soundtrack that fits the content perfectly.</li>
+            <li>Use natural language to specify style, lyrics, or instruments for a more customized soundtrack.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Supports soundtracks with vocals or instrumental.</li>
+            <li>Video up to 300MB / 3 min, in mp4 / mov / mpeg formats.</li>
+            <li>Image up to 100MB, in jpg / jpeg / png / webp formats.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Tap the Create Music menu, then the Soundtrack tab to use the soundtrack feature.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Tap the Create Music menu.</li>
+            <li>Select the Soundtrack tab.</li>
+            <li>Tap to upload the video/image file you want to score.</li>
+            <li>Enter prompts for the mood, style, instruments, and more.</li>
+            <li>Tap Create — your soundtrack is ready in seconds.</li>
+            <li>Tap the Download Video button to merge the soundtrack with your video.</li>
+            <li>Adjust the volume balance between the video&#39;s original audio and the soundtrack.</li>
+            <li>Tap Download Video to download the final scored video.</li>
+          </ol>
+        </section>
+      </article>
+      </section>
+      <section class="mk-section-group">
+      <article class="mk-section mk-section--level1 mk-section--intro" id="create-video">
+        <div class="mk-title-group">
+          <h1 class="mk-title mk-title--level1">Create Video</h1>
+          <p class="mk-subtitle mk-subtitle--level1">A powerful music video creator combining lyrics video creation and music-to-video generation in a professional creative environment.</p>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level2" id="video-music">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Create Music Video</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Generate a fully AI-rendered music video from a song — configure your character, background, and visual style, then let AI compose every shot or refine each scene yourself before generating.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Lip-sync music video: Generate an MV where the character&#39;s mouth movements are synchronized to the song&#39;s vocals — no manual recording or editing required.</li>
+            <li>Lyric-aware shot generation: The song&#39;s lyrics will be read to generate contextually relevant shots — each scene reflects the mood, narrative, and imagery of the words, not just the music energy.</li>
+            <li>Storyboard editing before generation: In Storyboard mode, the AI pre-generates a shot-by-shot visual plan. Users can review each frame, regenerate any individual shot they&#39;re not happy with, and adjust the storyboard freely — then trigger the final render only when satisfied.</li>
+            <li>Shareable MV output: The finished MV is saved to the Workspace and ready to download or share. Supports multiple aspect ratios (16:9, 9:16, 3:4, 4:3) so the output fits any platform — YouTube, TikTok, Instagram, and more.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>No editing skills needed</li>
+            <li>Per-shot storyboard control</li>
+            <li>Regenerate individual shots</li>
+            <li>Lip-sync character support</li>
+            <li>Many visual style choices</li>
+            <li>Mood text + tag input</li>
+            <li>Automatic lyrics subtitle matching</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Song clip length is at least 10s, max to 90s.</li>
+            <li>Video content is fully AI-generated — no manual timeline editing now.</li>
+            <li>In Storyboard mode, users can regenerate individual shot images before final generation; shot timing is system-assigned (by lyrics timeline).</li>
+            <li>Character lip-sync availability is character-dependent, please ensure that the character image contains a clear face.</li>
+            <li>Generation costs 40 Gold per second.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Function Entry 1: Left sidebar<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 352px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-music-entry-1-2.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 2: Song more pop-up window → Download video/Video<div class="mk-media-grid mk-media-grid--stacked">
+              <figure class="mk-media-figure" style="--mk-media-width: 467px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-music-entry-2-3.png" alt=""></figure>
+              <figure class="mk-media-figure" style="--mk-media-width: 332px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-music-entry-2-4.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 3: Song list<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 334px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-music-entry-3-5.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 4: Song detail<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 384px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-music-entry-4-6.png" alt=""></figure>
+            </div></li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Showcase</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 230px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-music-showcase-1-2.mp4" controls playsinline preload="metadata"></video></figure>
+              <figure class="mk-media-figure" style="--mk-media-width: 230px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-music-showcase-1-3.mp4" controls playsinline preload="metadata"></video></figure>
+              <figure class="mk-media-figure" style="--mk-media-width: 230px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-music-showcase-1-4.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="video-lyrics">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Create Lyrics Video</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Compose a shareable lyrics video by customizing layout, background, and text style — with real-time preview and direct download.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li><strong>Layout &amp; background picker: </strong>Choose from multiple visual layout templates &amp; backgrounds for lyrics display.</li>
+            <li><strong>Text style control: </strong>Font size, color, and lyrics lines.</li>
+            <li><strong>Real-time preview: </strong>Live canvas preview with draggable text elements.</li>
+            <li><strong>Direct download: </strong>Export and download the finished lyrics video without gold cost.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Multiple layout templates</li>
+            <li>No AI generation cost</li>
+            <li>Live canvas preview</li>
+            <li>Draggable layout elements</li>
+            <li>Instant download</li>
+            <li>Supports four aspect ratios</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Lyrics video is user-composed, not AI-generated.</li>
+            <li>Song must be selected from the user&#39;s Mureka library. Support full song duration.</li>
+            <li>Layouts are template-based; freely-drag items is supported.</li>
+            <li>Output is downloaded directly — check all history in your library.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Function Entry 1: Left sidebar<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 331px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-lyrics-entry-1-10.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 2: Song more pop-up window → Download video/Video<div class="mk-media-grid mk-media-grid--stacked">
+              <figure class="mk-media-figure" style="--mk-media-width: 467px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-lyrics-entry-2-11.png" alt=""></figure>
+              <figure class="mk-media-figure" style="--mk-media-width: 332px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-lyrics-entry-2-12.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 3: Song list<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 334px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-lyrics-entry-3-13.png" alt=""></figure>
+            </div></li>
+            <li>Function Entry 4: Song detail<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 384px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/video-lyrics-entry-4-14.png" alt=""></figure>
+            </div></li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Showcase</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Showcase1<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 228px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-lyrics-showcase-1-5.mp4" controls playsinline preload="metadata"></video></figure>
+            </div></li>
+            <li>Showcase2<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 718px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-lyrics-showcase-2-6.mp4" controls playsinline preload="metadata"></video></figure>
+            </div></li>
+            <li>Showcase3<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 228px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/video-lyrics-showcase-3-7.mp4" controls playsinline preload="metadata"></video></figure>
+            </div></li>
+          </ol>
+        </section>
+      </article>
+      </section>
+      <section class="mk-section-group">
+      <article class="mk-section mk-section--level1 mk-section--intro" id="studio">
+        <div class="mk-title-group">
+          <h1 class="mk-title mk-title--level1">Studio</h1>
+          <p class="mk-subtitle mk-subtitle--level1">A professional AI music editor combining multi-track editing, AI generation, and precision control in a DAW-style creative environment.</p>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-add-stem-track">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Add Stem Track</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Add new instrument tracks based on existing audio</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Add new stems based on existing tracks</li>
+            <li>Support for multiple instrument type selections</li>
+            <li>Automatically match the musical characteristics of the original track</li>
+            <li>Maintain overall musical harmony</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Quickly enrich arrangements: Add new musical layers to your work with one click</li>
+            <li>Smart matching: Newly added stems automatically blend with existing music</li>
+            <li>Flexible creation: Gradually build complex multi-track arrangements</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Added stems are generated based on existing track characteristics and are suitable for expanding arrangements within the same composition. When multiple tracks exist in Studio, generation is based on the initially uploaded track audio. If you want to generate based on the layered audio of multiple tracks, you can export first and then use this feature</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-add-stem-track-how_to_use-1-8.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-add-instrumental">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Add Instrumental</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Add a complete instrumental backing track to existing audio</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Generate complete instrumental backing tracks</li>
+            <li>Automatically adapt to the BPM and key of existing music</li>
+            <li>Support style and instrument arrangement descriptions</li>
+            <li>Naturally blend with original tracks</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Quickly complete arrangements: Rapidly add full backing to vocals or melodies</li>
+            <li>Controllable style: Specify backing style and arrangement through descriptions</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Generated complete backing tracks automatically match original track characteristics. For precise control over each instrument, we recommend using Add Stem Track to add them individually</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-add-instrumental-how_to_use-1-9.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-add-vocal">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Add Vocal</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Add AI-generated vocal tracks to existing backing music</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Generate vocal melodies matching the backing music</li>
+            <li>Support custom lyrics input</li>
+            <li>Automatically adapt to the musical characteristics of the backing</li>
+            <li>Multiple voice types and singing styles available through descriptions</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Quickly add vocals: Rapidly add singing parts to instrumental tracks</li>
+            <li>Flexible styling: Customize lyrics content and singing style</li>
+            <li>Professional audio quality: Generated vocals have professional recording quality</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Generated vocals adapt to existing backing music, but melody and rhythm are determined by AI based on backing characteristics. If you need complete control over melody, multiple generations may be needed to select the best result</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-add-vocal-how_to_use-1-10.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-extract-stems">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Extract Stems</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Extract individual tracks (vocals, bass, drums, instruments, etc.) from a complete song, up to 12 tracks</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Support extraction of vocals, bass, drums, instruments and other stem types</li>
+            <li>Export as high-quality audio or MIDI files</li>
+            <li>Separated tracks can be edited directly in Studio</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Complete decomposition capability: Intelligently decompose mixed works into independently editable tracks</li>
+            <li>Professional quality: High-quality separation suitable for further production</li>
+            <li>Seamless DAW integration: Use directly in Mureka Studio, or download exported audio/MIDI for use in Logic, Ableton, FL Studio and other DAWs</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Bleed may occur in complex mixes or with heavy special effects, and results may have fewer than 12 tracks if some instruments cannot be identified. Best suited for stem separation of standard pop music arrangements. MIDI export works best for melodic instruments; MIDI conversion of complex chords and percussion may not be perfect</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Library-Download-Download  Stem /MIDI:<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 302px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/studio-extract-stems-entry-1-21.png" alt=""></figure>
+            </div></li>
+            <li>Music Edit-Splitter:<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 414px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/studio-extract-stems-entry-2-22.png" alt=""></figure>
+            </div></li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-extract-stems-how_to_use-1-11.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-replace">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Replace</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Select any segment for local regeneration, supporting lyric and style modifications while ensuring natural transitions</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Precise local segment replacement</li>
+            <li>Support lyric content modification</li>
+            <li>Support specifying new styles</li>
+            <li>Automatically maintain natural transitions with surrounding content</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>No need to start over: Only change the parts you want, keeping what you like</li>
+            <li>Precise control: Modify down to the measure level</li>
+            <li>Seamless transitions: AI ensures modified segments naturally flow with surrounding content</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Replace is suitable for fine-tuning locally unsatisfactory parts. Recommended replacement segment length is between 4-16 measures. Segments too short (&lt;4 measures) may struggle to fully express style changes; segments too long (&gt;32 measures) should be split into multiple replacements for better control</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-replace-how_to_use-1-12.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="studio-extend">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Extend</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Append new content forward or backward at any position on the timeline without affecting existing audio</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Timeline extension in both directions (forward and backward)</li>
+            <li>Complete preservation of existing content</li>
+            <li>New content automatically connects with existing audio</li>
+            <li>Support inserting new segments at any position</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Free expansion: Add intros, interludes, or outros to your work at any time</li>
+            <li>Safe editing: Original creative work is not lost</li>
+            <li>Flexible layout: Add new content at any position on the timeline</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Extend generates new content based on musical characteristics before and after the extension point to ensure natural transitions. However, if you want to introduce completely different style changes in the extended segment, you may need to use Replace to further adjust after extension</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/studio-extend-how_to_use-1-13.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      </section>
+      <section class="mk-section-group">
+      <article class="mk-section mk-section--level1 mk-section--intro" id="music-edit">
+        <div class="mk-title-group">
+          <h1 class="mk-title mk-title--level1">Music Edit</h1>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level2" id="edit-edit">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Edit（Fine-Tune Regions）</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Regenerate selected phrases of a song.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <p class="mk-body">When your track has minor flaws, there&#39;s no need to reroll the whole song — just regenerate the affected phrases to keep most of it and fix only the flawed parts.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <p class="mk-body">Fix minor flaws without rerolling — pinpoint and repair lyrics, vocals, or melody issues; lower generation costs and make perfecting your track smoother.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Regenerate individual lines the AI mis-sang to fix flaws, without changing the lyrics or melody.</li>
+            <li>Regenerate unsatisfactory lyrics and melody together.</li>
+            <li>Edit only the unsatisfactory lyrics, keeping the melody unchanged.</li>
+            <li>Change the melody of unsatisfactory phrases, keeping the lyrics unchanged.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Go to the Library screen, tap the Remix/Edit button, then tap Edit to open the Edit screen.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Go to the Library screen, tap the Remix/Edit button, then tap Edit to open the Edit screen.</li>
+            <li>Tap the start and end lines of the lyrics you want to change to set the regeneration range.</li>
+            <li>Edit the selected lyrics.</li>
+            <li>Turn the Keep melody feature on or off.</li>
+            <li>Tap ReCreate to generate a full new song — only the selected part is regenerated, while the unselected parts stay unchanged.</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="edit-extend">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Extend</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Append new content forward or backward at any position on the timeline without affecting existing audio</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Timeline extension in backward directions</li>
+            <li>Complete preservation of existing content</li>
+            <li>New content automatically connects with existing audio</li>
+            <li>Support inserting new segments at any position</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Free expansion: Add intros, interludes, or outros to your work at any time</li>
+            <li>Safe editing: Original creative work is not lost</li>
+            <li>Flexible layout: Add new content at any position on the timeline</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Extend generates new content based on musical characteristics before and after the extension point to ensure natural transitions. However, if you want to introduce completely different style changes in the extended segment, you may need to use Replace to further adjust after extension</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Go to the Library page, select the song to trim, tap the &#34;···&#34; button, choose Edit, then tap the Extend button to trim the song.</li>
+            <li>Tap Music Create and select Extend to upload audio and edit it.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Tap to open the song&#39;s Extend screen.</li>
+            <li>Select the audio range you want to extend.</li>
+            <li>Enter the lyrics you want to continue with.</li>
+            <li>Tap the Extend button to generate a new song with the extended section added.</li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="edit-splitter">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Splitter</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Extract individual tracks (vocals, bass, drums, instruments, etc.) from a complete song, up to 12 tracks</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Support extraction of vocals, bass, drums, instruments and other stem types</li>
+            <li>Export as high-quality audio or MIDI files</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Complete decomposition capability: Intelligently decompose mixed works into independently editable tracks</li>
+            <li>Professional quality: High-quality separation suitable for further production</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">Bleed may occur in complex mixes or with heavy special effects, and results may have fewer than 12 tracks if some instruments cannot be identified. Best suited for stem separation of standard pop music arrangements. MIDI export works best for melodic instruments; MIDI conversion of complex chords and percussion may not be perfect</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Library-Download-Download  Stem /MIDI:<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 302px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/edit-splitter-entry-1-26.png" alt=""></figure>
+            </div></li>
+            <li>Music Edit-Splitter:<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 414px; --mk-media-height: 405px;"><img src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-105952/media/edit-splitter-entry-2-27.png" alt=""></figure>
+            </div></li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 540px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/edit-splitter-how_to_use-1-14.mp4" controls playsinline preload="metadata"></video></figure>
+            </div>        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="edit-trim">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Trim｜Audio Trimming</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Select a segment — keep what you want, cut the rest.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <p class="mk-body">Select range: drag on the waveform to pick the segment to process.<br>Trim ends: quickly remove silence at the start or a trailing tail at the end.<br>Preview before applying: confirm your selection before you cut.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <p class="mk-body">The most common and simplest edit — easy to pick up.<br>Work right on the waveform — what you select is exactly what you get.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <p class="mk-body">It only &#34;cuts&#34; — it won&#39;t change the audio content itself.</p>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Go to the Library page, select the song to trim, tap the &#34;···&#34; button, choose Edit, then tap the Trim button to trim the song.</li>
+            <li>Tap Music Create and select Trim to upload audio and trim it.</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Open the trim screen.</li>
+            <li>Drag the start and end points to select the audio segment you want to keep.</li>
+            <li>Tap Trim to remove the audio outside the selected range.</li>
+            <li>Trim as many times as needed until you&#39;re happy, then tap Save to save it as a new song.</li>
+          </ol>
+        </section>
+      </article>
+      </section>
+      <section class="mk-section-group">
+      <article class="mk-section mk-section--level1 mk-section--intro" id="mureka-co">
+        <div class="mk-title-group">
+          <h1 class="mk-title mk-title--level1">Mureka Co</h1>
+          <p class="mk-subtitle mk-subtitle--level1">An AI music co-worker that lets creators control DAW and call all AI generation capabilities through natural language conversation.</p>
+        </div>
+      </article>
+      <article class="mk-section mk-section--level2" id="co-daw-control">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Natural Language DAW Control</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Control your DAW through natural language — no menus, no shortcuts to memorize. Mureka Co translates what you say into DAW commands and executes them instantly.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Track management: Create MIDI or audio tracks, rename, delete, mute, and unmute</li>
+            <li>Clip operations: Create clips, move clips to a specific position, delete clips</li>
+            <li>Session parameters: Set global BPM, change time signature</li>
+            <li>Track parameters: Adjust volume and pan</li>
+            <li>Effect chains: Load plugins onto a track and control their signal order (e.g., Reverb → EQ)</li>
+            <li>Import / Export: Import local audio to a specific track position, export individual stems, bounce the full mix</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>From idea to action in one sentence: Eliminates both &#34;I have the idea but can&#39;t figure out the controls&#34; and &#34;I know the controls but lose my flow doing them&#34; — creativity stays uninterrupted</li>
+            <li>Non-destructive by design: Every action is previewed before it runs and supports standard DAW undo, so you&#39;re always in control of your session</li>
+            <li>Zero learning curve: Nothing about your existing DAW workflow changes — repetitive tasks just get faster</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Currently supports Ableton Live and Reaper; other DAWs are not supported</li>
+            <li>Available on both macOS and Windows</li>
+            <li>Natural language control requires an active connection between Mureka Co and your DAW; generation features remain available if the connection is dropped</li>
+            <li>Fine-grained plugin parameter adjustments (e.g., specific compression ratios or EQ gain values) are not currently supported — use the DAW interface for those</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Natural language conversation</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>User: &#34;Create a new MIDI track called Synth Lead, and set the BPM to 120&#34;</li>
+            <li>→ A new MIDI track named Synth Lead is created and the session BPM is updated to 120</li>
+            <li>User: &#34;Add reverb and EQ to the Vocal track, put reverb first in the chain&#34;</li>
+            <li>→ Reverb and EQ are loaded onto the Vocal track in the correct signal order<div class="mk-media-grid mk-media-grid--inline">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/co-daw-control-how_to_use-4-15.mp4" controls playsinline preload="metadata"></video></figure>
+            </div></li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="co-one-conversation">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">One Conversation, Every Capability</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Access every Mureka AI generation capability through natural language — full songs, single tracks, Remix, Extend, MIDI export, Voice Clone, Soundtrack, and more — all without switching screens.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Full song generation: Describe a style and mood — a complete song is generated and imported into your DAW, with the project created, stems split, and beats aligned automatically</li>
+            <li>Single track generation: Add an instrument, vocal, or instrumental track on top of an existing session; supports time-range targeting and using an existing track as a style reference</li>
+            <li>Audio Ref: Upload a reference audio file; Mureka analyzes its style and generates a new song in the same vibe</li>
+            <li>Remix: Re-arrange an uploaded track, with the option to keep or replace the lyrics</li>
+            <li>Extend / Local Edit / MIDI Export / Voice Clone / Soundtrack: Full coverage of core music production workflows</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>One sentence, done: From idea to finished content in your DAW — one conversation is all it takes</li>
+            <li>A single entry point for everything: No need to remember where each feature lives — just describe what you want and the agent picks and runs the right generation flow</li>
+            <li>AI output that fits straight into a pro workflow: Generated music lands in your DAW as split stems, beat-aligned and ready for further editing</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Currently tied to Ableton Live for import; generated results cannot be written directly into other DAWs</li>
+            <li>Before each generation, the agent presents a summary of the planned action for you to confirm — this confirmation step cannot be skipped</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Natural language conversation</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>User: &#34;Generate a lo-fi hip-hop track with a late-night driving feel, around 85 BPM&#34; → Mureka Co generates the full song → User previews and confirms → One click imports into Ableton, project created with stems split and beats aligned<div class="mk-media-grid mk-media-grid--stacked">
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/co-one-conversation-how_to_use-1-16.mp4" controls playsinline preload="metadata"></video></figure>
+              <figure class="mk-media-figure" style="--mk-media-width: 720px; --mk-media-height: 405px;"><video src="https://static-cos.mureka.ai/cos-prod/knowledge/mureka/runs/20260701-141551/media/co-one-conversation-how_to_use-1-17.mp4" controls playsinline preload="metadata"></video></figure>
+            </div></li>
+          </ol>
+        </section>
+      </article>
+      <article class="mk-section mk-section--level2" id="co-upload-file">
+        <div class="mk-title-group">
+          <h2 class="mk-title mk-title--level2">Upload Local Files and Create from Your Own Material</h2>
+          <p class="mk-subtitle mk-subtitle--level2">Upload your own audio, images, or video to unlock Remix, Extend, Local Edit, MIDI Export, Voice Clone, Soundtrack, and more — turning AI into a true extension of your existing work.</p>
+        </div>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Core Capabilities</h3>
+          <p class="mk-body">Drop audio (mp3 / wav / flac / m4a), images (jpg / png), or video (mp4 / mov / mkv / avi) directly into the input box<br>Pair the upload with a natural language prompt to trigger the right creation flow<br>The agent automatically extracts style, duration, BPM, and other parameters from your file to guide generation<br>Supported capabilities:</p>
+          <ol class="mk-body mk-body-list">
+            <li>Audio Ref: Analyzes the style of an uploaded track and generates a new song in the same vibe — original audio untouched</li>
+            <li>Remix (lyrics optional): Re-arranges an uploaded track; keep the original lyrics or swap in new ones — written by the agent or yourself</li>
+            <li>Extend (forward / backward): Extend from any point in either direction; the generated segment splices in seamlessly</li>
+            <li>Local Edit: Surgically replace a specific time range — either preserving the original melody or generating something entirely new</li>
+            <li>MIDI Export: Extracts the main melody from uploaded audio and outputs a MIDI file, ready to drop onto any DAW track</li>
+            <li>Voice Clone: Captures the vocal timbre from an uploaded track and uses it to sing new material (only available when vocals are detected)</li>
+            <li>Soundtrack: Upload an image or video; the agent reads the mood and generates a score matched to the duration</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Why Use It</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Your material is your best prompt: A reference track or video clip says more than any text description — just upload it and go</li>
+            <li>Fits your existing workflow: Upload from your local files the same way you always have; no cloud migration required</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Boundaries</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Image uploads are limited to Soundtrack scoring and lyric-video use cases; images cannot be used to trigger other generation types</li>
+            <li>Supported formats: audio — mp3 / wav / flac / m4a; image — jpg / png; video — mp4 / mov / mkv / avi</li>
+            <li>Voice Clone is only available when the agent detects vocals in the uploaded audio; purely instrumental files will not trigger it</li>
+            <li>Remix with lyrics replacement first transcribes the original lyrics and shows them for your confirmation; accuracy depends on the clarity of the original mix</li>
+            <li>For Local Edit, the recommended replacement length is 4–32 bars; segments shorter than 4 bars may not express style changes fully, and longer segments are best split into multiple passes</li>
+            <li>MIDI Export works best for melodic instruments; conversion accuracy for complex chords and percussion is limited</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">Entry</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Natural language prompt + drag-and-drop upload</li>
+          </ol>
+        </section>
+        <section class="mk-content-block">
+          <h3 class="mk-block-title">How to Use</h3>
+          <ol class="mk-body mk-body-list">
+            <li>Click the attachment icon in the input box or drag a file directly into it, then add a natural language prompt to trigger the corresponding capability.</li>
+            <li>Example: Upload demo.mp3 &#34;Generate a song in a similar style to this&#34;</li>
+          </ol>
+        </section>
+      </article>
+      </section>
+    </main>
+  </div>
+  <script>
+(() => {
+  const activeClass = "mk-nav-item--active";
+  const links = Array.from(document.querySelectorAll(".mk-nav-row[data-section-id]"));
+  const sections = links
+    .map((link) => document.getElementById(link.dataset.sectionId))
+    .filter(Boolean);
+
+  function setActive(id, options = {}) {
+    let activeItem = null;
+    links.forEach((link) => {
+      const item = link.querySelector(".mk-nav-item");
+      if (!item) {
+        return;
+      }
+      const active = link.dataset.sectionId === id;
+      item.classList.toggle(activeClass, active);
+      if (active) {
+        activeItem = item;
+      }
+    });
+    if (activeItem && options.scrollNav) {
+      activeItem.scrollIntoView({ block: "nearest" });
+    }
+  }
+
+  function hashID() {
+    if (!window.location.hash) {
+      return "";
+    }
+    try {
+      return decodeURIComponent(window.location.hash.slice(1));
+    } catch {
+      return window.location.hash.slice(1);
+    }
+  }
+
+  function currentSectionID() {
+    const offset = 96;
+    let current = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= offset) {
+        current = section;
+      } else {
+        break;
+      }
+    }
+    return current ? current.id : "";
+  }
+
+  function updateActive() {
+    const id = currentSectionID();
+    if (id) {
+      setActive(id, { scrollNav: true });
+    }
+  }
+
+  window.addEventListener("scroll", updateActive, { passive: true });
+  window.addEventListener("hashchange", () => {
+    const id = hashID();
+    if (id) {
+      setActive(id, { scrollNav: true });
+    }
+    window.setTimeout(updateActive, 250);
+  });
+  links.forEach((link) => {
+    link.addEventListener("click", () => setActive(link.dataset.sectionId));
+  });
+
+  const id = hashID();
+  if (id) {
+    setActive(id);
+  } else {
+    updateActive();
+  }
+
+  setupNavGroups();
+  setupSidebarToggle();
+
+  function setupNavGroups() {
+    document.querySelectorAll("[data-nav-toggle]").forEach((toggle) => {
+      const groupID = toggle.dataset.navToggle;
+      const group = document.querySelector('[data-nav-group="' + groupID + '"]');
+      if (!group) {
+        return;
+      }
+      toggle.addEventListener("click", () => {
+        const collapsed = group.classList.toggle("mk-nav-group--collapsed");
+        toggle.setAttribute("aria-expanded", String(!collapsed));
+      });
+    });
+  }
+
+  function setupSidebarToggle() {
+    const page = document.querySelector(".mk-page");
+    const toggle = document.querySelector("[data-sidebar-toggle]");
+    if (!page || !toggle) {
+      return;
+    }
+    toggle.addEventListener("click", () => {
+      const collapsed = page.classList.toggle("mk-page--sidebar-collapsed");
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+    });
+  }
+})();
+  </script>
+</body>
+</html>

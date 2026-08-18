@@ -76,28 +76,15 @@
     }
     .nav-left, .nav-links, .nav-actions { display: flex; align-items: center; }
     .nav-left { gap: 44px; }
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      font: 600 21px/1 "Space Grotesk", sans-serif;
-    }
-    .brand-mark {
-      width: 28px;
-      height: 28px;
-      display: grid;
-      place-items: center;
-      border-radius: 6px;
-      background: var(--text);
-      color: #090a0a;
-    }
-    .brand-mark svg { width: 18px; height: 18px; }
+    .brand { display: inline-flex; align-items: center; text-decoration: none; }
+    .brand-logo { display: block; width: 110px; height: auto; }
     .nav-links { gap: 30px; }
     .nav-link {
+      flex: 0 0 auto;
       color: var(--muted);
       text-decoration: none;
       font-size: 14px;
+      white-space: nowrap;
       transition: color .2s ease;
     }
     .nav-link:hover, .nav-link[aria-current="page"] { color: var(--text); }
@@ -201,6 +188,7 @@
       margin: 0 auto;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       gap: 14px;
     }
     .search {
@@ -257,7 +245,6 @@
     }
     .filter-button svg { width: 17px; height: 17px; }
     .filter-button[data-active="true"] { border-color: var(--accent); color: var(--accent); }
-    .result-count { margin-left: auto; color: var(--muted); font-size: 13px; }
 
     .filter-panel {
       width: min(calc(100% - 48px), var(--max));
@@ -458,7 +445,6 @@
         flex-wrap: wrap;
       }
       .search { flex: 1 1 calc(100% - 114px); }
-      .result-count { width: 100%; margin-left: 0; }
       .filter-panel { width: min(calc(100% - 32px), var(--max)); }
       .release-inner {
         width: min(calc(100% - 32px), var(--max));
@@ -476,14 +462,12 @@
     @media (max-width: 520px) {
       .site-header { height: 60px; }
       .controls-wrap { top: 60px; }
-      .brand { font-size: 19px; }
-      .brand-mark { width: 25px; height: 25px; }
-      .nav-links a:nth-child(2) { display: none; }
+      .brand-logo { width: 96px; }
       .nav-left { gap: 18px; }
-      .nav-links { display: flex; gap: 14px; }
+      .nav-links { display: flex; gap: 12px; }
       .nav-link { font-size: 12px; }
-      .lang-menu { right: 118px; top: 43px; }
-      .primary-button { min-height: 36px; padding: 0 13px; font-size: 13px; }
+      .lang-menu { right: 0; top: 43px; }
+      .primary-button { display: none; }
       .hero { padding-top: 48px; }
       h1 { font-size: 52px; }
       .search { flex-basis: 100%; }
@@ -503,16 +487,11 @@
   <header class="site-header">
     <nav class="nav" aria-label="Primary navigation">
       <div class="nav-left">
-        <a class="brand" href="https://www.mureka.ai/" aria-label="Mureka home">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M5 17V7l7 6 7-6v10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          Mureka
-        </a>
+        <a class="brand" href="https://www.mureka.ai/" aria-label="Mureka home"><img class="brand-logo" src="./assets/mureka-logo.png" alt="Mureka"></a>
         <div class="nav-links">
-          <a class="nav-link" href="./explore.html" data-i18n="explore">Explore</a>
-          <a class="nav-link" href="https://www.mureka.ai/knowledge_en" data-i18n="learn">Learn</a>
+          <a class="nav-link" href="./index.html" data-i18n="explore">Explore</a>
           <a class="nav-link" href="#top" aria-current="page" data-i18n="releaseNotes">Release Notes</a>
+          <a class="nav-link" href="./index.html#knowledge" data-i18n="knowledge">Knowledge</a>
         </div>
       </div>
       <div class="nav-actions">
@@ -546,7 +525,6 @@
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           <span data-i18n="filter">Filter</span>
         </button>
-        <span id="resultCount" class="result-count" aria-live="polite"></span>
       </div>
       <div id="filterPanel" class="filter-panel" hidden>
         <button class="chip" type="button" data-filter="all" aria-pressed="true" data-i18n="all">All</button>
@@ -701,7 +679,7 @@
 
   <footer>
     <span>© 2026 Mureka. All rights reserved.</span>
-    <nav aria-label="Footer navigation"><a href="https://www.mureka.ai/about">About</a><a href="https://www.mureka.ai/faq">FAQ</a><a href="https://www.mureka.ai/knowledge_en">Knowledge</a><a href="https://platform.mureka.ai/">API</a></nav>
+    <nav aria-label="Footer navigation"><a href="https://www.mureka.ai/about">About</a><a href="https://www.mureka.ai/faq">FAQ</a><a href="https://platform.mureka.ai/">API</a></nav>
   </footer>
 
   <script>
@@ -711,13 +689,12 @@
     const filterPanel = document.querySelector('#filterPanel');
     const chips = [...document.querySelectorAll('.chip')];
     const releases = [...document.querySelectorAll('.release')];
-    const resultCount = document.querySelector('#resultCount');
     const emptyState = document.querySelector('#emptyState');
     let activeFilter = 'all';
     let currentLanguage = localStorage.getItem('mureka-language') || 'en';
     const interfaceCopy = {
-      en: { explore: 'Explore', learn: 'Learn', releaseNotes: 'Release Notes', create: 'Create music', productReleases: 'Product releases', heroCopy: 'New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.', filter: 'Filter', all: 'All', newFeature: 'New feature', improvement: 'Improvement', musicModel: 'Music model', noUpdates: 'No updates found', emptyHint: 'Try a different search or clear the selected filter.', search: 'Search updates' },
-      zh: { explore: '探索', learn: '学习中心', releaseNotes: '版本更新', create: '创作音乐', productReleases: '产品更新', heroCopy: '了解 Mureka 创作、编辑与分享音乐的最新能力，包括模型升级、工作流优化和多端产品更新。', filter: '筛选', all: '全部', newFeature: '新功能', improvement: '体验优化', musicModel: '音乐模型', noUpdates: '没有找到更新', emptyHint: '请尝试其他关键词或清除当前筛选条件。', search: '搜索更新' }
+      en: { explore: 'Explore', knowledge: 'Knowledge', releaseNotes: 'Release Notes', create: 'Create music', productReleases: 'Product releases', heroCopy: 'New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.', filter: 'Filter', all: 'All', newFeature: 'New feature', improvement: 'Improvement', musicModel: 'Music model', noUpdates: 'No updates found', emptyHint: 'Try a different search or clear the selected filter.', search: 'Search updates' },
+      zh: { explore: '探索', knowledge: '知识库', releaseNotes: '版本更新', create: '创作音乐', productReleases: '产品更新', heroCopy: '了解 Mureka 创作、编辑与分享音乐的最新能力，包括模型升级、工作流优化和多端产品更新。', filter: '筛选', all: '全部', newFeature: '新功能', improvement: '体验优化', musicModel: '音乐模型', noUpdates: '没有找到更新', emptyHint: '请尝试其他关键词或清除当前筛选条件。', search: '搜索更新' }
     };
     const releaseChinese = [
       { title: '认识 Mureka Co：你的 AI 音乐智能体', paragraphs: ['Mureka Co 将音乐创作工作流整合进一次对话。描述你想创作、修改或编排的内容，Co 会帮助你将需求转化为可编辑的项目。','Mureka Co 已包含在 Pro 方案中，目前可在桌面端使用。'], items: ['<strong>从一个想法开始：</strong>使用情绪、故事、参考作品或制作方向开启创作。','<strong>操作整个项目：</strong>通过对话调整编曲、增加新段落或替换乐器。','<strong>保持创作控制：</strong>在现有 Mureka 工作流中继续细化结果。'], link: '探索 Mureka Co' },
@@ -775,7 +752,6 @@
       });
 
       clearSearch.hidden = !query;
-      resultCount.textContent = currentLanguage === 'zh' ? `${visible} 条更新` : `${visible} update${visible === 1 ? '' : 's'}`;
       emptyState.hidden = visible !== 0;
       filterToggle.dataset.active = String(activeFilter !== 'all');
     }
