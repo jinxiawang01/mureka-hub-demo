@@ -1,0 +1,813 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What's New at Mureka | AI Music Product Updates</title>
+  <meta name="description" content="Explore the latest Mureka AI music updates, including new creation tools, model improvements, mobile releases, and workflow enhancements.">
+  <link rel="canonical" href="https://www.mureka.ai/whats-new">
+  <meta property="og:title" content="What's New at Mureka">
+  <meta property="og:description" content="The latest Mureka AI music features, improvements, and product releases.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.mureka.ai/whats-new">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "What's New at Mureka",
+    "description": "The latest Mureka AI music features, improvements, and product releases.",
+    "url": "https://www.mureka.ai/whats-new",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "Mureka",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "url": "https://www.mureka.ai/"
+    }
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070808;
+      --surface: #0d0f0f;
+      --surface-2: #121515;
+      --line: #252929;
+      --line-strong: #363c3c;
+      --text: #f4f6f5;
+      --muted: #929a98;
+      --accent: #68dbe5;
+      --green: #72eba8;
+      --max: 1280px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "DM Sans", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+    button, input { font: inherit; }
+    a { color: inherit; }
+    [hidden] { display: none !important; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      height: 68px;
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      background: rgba(7,8,8,.88);
+      backdrop-filter: blur(18px);
+    }
+    .nav {
+      width: min(calc(100% - 48px), var(--max));
+      height: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-left, .nav-links, .nav-actions { display: flex; align-items: center; }
+    .nav-left { gap: 44px; }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font: 600 21px/1 "Space Grotesk", sans-serif;
+    }
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: var(--text);
+      color: #090a0a;
+    }
+    .brand-mark svg { width: 18px; height: 18px; }
+    .nav-links { gap: 30px; }
+    .nav-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+    .nav-link:hover, .nav-link[aria-current="page"] { color: var(--text); }
+    .nav-actions { gap: 10px; position: relative; }
+    .icon-button, .primary-button, .filter-button, .chip {
+      border: 0;
+      cursor: pointer;
+    }
+    .icon-button {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--muted);
+    }
+    .icon-button:hover { background: var(--surface-2); color: var(--text); }
+    .icon-button svg { width: 19px; height: 19px; }
+    .lang-menu {
+      position: absolute;
+      top: 48px;
+      right: 152px;
+      width: 128px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #171919;
+      box-shadow: 0 14px 40px rgba(0,0,0,.4);
+    }
+    .lang-option {
+      width: 100%;
+      height: 36px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      text-align: left;
+      cursor: pointer;
+    }
+    .lang-option:hover, .lang-option[aria-current="true"] { background: #252828; color: var(--text); }
+    .primary-button {
+      min-height: 40px;
+      padding: 0 18px;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #071012;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .primary-button:hover { background: #8ae8ef; }
+
+    .hero {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+      padding: 92px 0 54px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      align-items: end;
+      gap: 72px;
+    }
+    .eyebrow {
+      margin: 0 0 20px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+    }
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; letter-spacing: 0; }
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(54px, 7vw, 94px);
+      line-height: .95;
+      font-weight: 500;
+    }
+    .hero-copy {
+      margin: 0 0 8px;
+      color: #b9bfbd;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .controls-wrap {
+      position: sticky;
+      top: 68px;
+      z-index: 15;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(7,8,8,.93);
+      backdrop-filter: blur(18px);
+    }
+    .controls {
+      width: min(calc(100% - 48px), var(--max));
+      min-height: 74px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .search {
+      position: relative;
+      width: min(420px, 100%);
+      flex: 0 1 420px;
+    }
+    .search svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      color: #7f8986;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .search input {
+      width: 100%;
+      height: 44px;
+      padding: 0 42px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      outline: none;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .search input:focus { border-color: var(--accent); }
+    .clear-search {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 28px;
+      height: 28px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .clear-search:hover { color: var(--text); background: var(--surface-2); }
+    .filter-button {
+      min-width: 100px;
+      height: 44px;
+      padding: 0 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--text);
+    }
+    .filter-button svg { width: 17px; height: 17px; }
+    .filter-button[data-active="true"] { border-color: var(--accent); color: var(--accent); }
+    .result-count { margin-left: auto; color: var(--muted); font-size: 13px; }
+
+    .filter-panel {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+      padding: 0 0 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      height: 32px;
+      padding: 0 12px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .chip:hover { color: var(--text); }
+    .chip[aria-pressed="true"] { border-color: var(--accent); background: rgba(104,219,229,.1); color: var(--accent); }
+
+    .feed { border-bottom: 1px solid var(--line); }
+    .release {
+      scroll-margin-top: 155px;
+      border-top: 1px solid var(--line);
+    }
+    .release:first-child { border-top: 0; }
+    .release-inner {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+      padding: 74px 0 82px;
+      display: grid;
+      grid-template-columns: minmax(280px, 38%) minmax(0, 1fr);
+      gap: 9%;
+    }
+    .release-title {
+      margin: 0 0 18px;
+      font-size: clamp(36px, 4.2vw, 62px);
+      line-height: 1.02;
+      font-weight: 500;
+    }
+    .release-title a { text-decoration: none; }
+    .release-title a:hover { color: var(--accent); }
+    .date { color: var(--muted); font-size: 13px; }
+    .tags { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      min-height: 27px;
+      padding: 4px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: #c8cdcb;
+      font-size: 11px;
+      line-height: 17px;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+    }
+    .tag.feature { border-color: rgba(114,235,168,.38); color: var(--green); }
+    .release-body { color: #d4d8d7; font-size: 17px; line-height: 1.62; }
+    .release-body > :first-child { margin-top: 2px; }
+    .release-body p { margin: 0 0 22px; }
+    .release-body h3 { margin: 32px 0 10px; color: var(--text); font-size: 22px; }
+    .release-body ul { margin: 0 0 26px; padding-left: 22px; }
+    .release-body li { margin: 10px 0; padding-left: 4px; }
+    .release-body strong { color: var(--text); font-weight: 600; }
+    .text-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid var(--text);
+    }
+    .text-link:hover { color: var(--accent); border-color: var(--accent); }
+    .text-link svg { width: 16px; height: 16px; }
+    .media {
+      position: relative;
+      min-height: 290px;
+      margin-top: 36px;
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      background: #101313;
+    }
+    .media-grid {
+      height: 100%;
+      min-height: 290px;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+    }
+    .media-copy {
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(145deg, #172224, #0c1010 68%);
+    }
+    .media-label { color: var(--green); font-size: 11px; text-transform: uppercase; letter-spacing: .12em; }
+    .media-copy b { display: block; max-width: 320px; font: 500 34px/1.08 "Space Grotesk", sans-serif; }
+    .wave-field {
+      position: relative;
+      min-width: 0;
+      overflow: hidden;
+      background: #68dbe5;
+    }
+    .wave-field::before, .wave-field::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent 0 10px, rgba(3,17,19,.22) 10px 12px);
+      mask-image: linear-gradient(to bottom, transparent 8%, #000 40%, #000 60%, transparent 92%);
+    }
+    .wave-field::after {
+      inset: 22% -12%;
+      background: repeating-linear-gradient(90deg, transparent 0 8px, rgba(3,17,19,.42) 8px 11px);
+      transform: rotate(-8deg);
+      mask-image: radial-gradient(ellipse at center, #000 0 32%, transparent 67%);
+    }
+    .studio-preview { min-height: 330px; padding: 20px; background: #0e1111; }
+    .studio-toolbar { height: 38px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--line); }
+    .studio-dot { width: 7px; height: 7px; border-radius: 50%; background: #48504e; }
+    .studio-tracks { padding-top: 22px; display: grid; gap: 12px; }
+    .track { height: 48px; display: grid; grid-template-columns: 80px 1fr; gap: 12px; align-items: center; }
+    .track-name { color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .track-wave { height: 34px; border-radius: 3px; opacity: .9; }
+    .track:nth-child(1) .track-wave { background: repeating-linear-gradient(90deg, #68dbe5 0 2px, transparent 2px 7px); }
+    .track:nth-child(2) .track-wave { background: repeating-linear-gradient(90deg, #72eba8 0 4px, transparent 4px 10px); }
+    .track:nth-child(3) .track-wave { background: repeating-linear-gradient(90deg, #d8c36b 0 3px, transparent 3px 8px); }
+    .track:nth-child(4) .track-wave { background: repeating-linear-gradient(90deg, #cf83be 0 2px, transparent 2px 6px); }
+    .mobile-preview {
+      min-height: 340px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 18px;
+      padding: 28px 24px 0;
+      background: linear-gradient(160deg, #142021, #0b0d0d);
+    }
+    .phone {
+      width: 145px;
+      height: 290px;
+      padding: 12px;
+      border: 1px solid #424a48;
+      border-bottom: 0;
+      border-radius: 22px 22px 0 0;
+      background: #050606;
+      box-shadow: 0 20px 50px rgba(0,0,0,.32);
+    }
+    .phone:nth-child(2) { height: 320px; }
+    .phone-speaker { width: 38px; height: 4px; margin: 1px auto 18px; border-radius: 2px; background: #262b2a; }
+    .phone-art { aspect-ratio: 1; border-radius: 5px; background: linear-gradient(140deg, #68dbe5, #72eba8 52%, #f0bd67); }
+    .phone-line { height: 7px; margin-top: 13px; border-radius: 4px; background: #2a302f; }
+    .phone-line.short { width: 56%; }
+    .phone-button { height: 32px; margin-top: 22px; display: grid; place-items: center; border-radius: 5px; background: var(--accent); color: #071012; font-size: 10px; font-weight: 600; }
+
+    .empty {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+      padding: 96px 0 120px;
+      text-align: center;
+    }
+    .empty h2 { margin: 0 0 12px; font-size: 36px; }
+    .empty p { margin: 0; color: var(--muted); }
+
+    footer {
+      width: min(calc(100% - 48px), var(--max));
+      margin: 0 auto;
+      padding: 46px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer nav { display: flex; gap: 22px; }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 860px) {
+      .nav { width: min(calc(100% - 32px), var(--max)); }
+      .nav-left { gap: 0; }
+      .nav-links { display: none; }
+      .hero {
+        width: min(calc(100% - 32px), var(--max));
+        padding: 62px 0 38px;
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+      h1 { font-size: clamp(50px, 16vw, 76px); }
+      .hero-copy { max-width: 580px; font-size: 16px; }
+      .controls-wrap { top: 68px; }
+      .controls {
+        width: min(calc(100% - 32px), var(--max));
+        padding: 14px 0;
+        flex-wrap: wrap;
+      }
+      .search { flex: 1 1 calc(100% - 114px); }
+      .result-count { width: 100%; margin-left: 0; }
+      .filter-panel { width: min(calc(100% - 32px), var(--max)); }
+      .release-inner {
+        width: min(calc(100% - 32px), var(--max));
+        padding: 54px 0 62px;
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+      .release-title { font-size: clamp(38px, 10vw, 54px); }
+      .release-body { font-size: 16px; }
+      .media-grid { grid-template-columns: 1fr; }
+      .wave-field { min-height: 180px; }
+      footer { width: min(calc(100% - 32px), var(--max)); align-items: flex-start; gap: 22px; flex-direction: column; }
+    }
+
+    @media (max-width: 520px) {
+      .site-header { height: 60px; }
+      .controls-wrap { top: 60px; }
+      .brand { font-size: 19px; }
+      .brand-mark { width: 25px; height: 25px; }
+      .nav-links a:nth-child(2) { display: none; }
+      .nav-left { gap: 18px; }
+      .nav-links { display: flex; gap: 14px; }
+      .nav-link { font-size: 12px; }
+      .lang-menu { right: 118px; top: 43px; }
+      .primary-button { min-height: 36px; padding: 0 13px; font-size: 13px; }
+      .hero { padding-top: 48px; }
+      h1 { font-size: 52px; }
+      .search { flex-basis: 100%; }
+      .filter-button { flex: 1; }
+      .release { scroll-margin-top: 195px; }
+      .release-inner { padding-top: 44px; }
+      .release-title { font-size: 40px; }
+      .media-copy { padding: 26px; }
+      .media-copy b { font-size: 28px; }
+      .mobile-preview { gap: 8px; padding-inline: 12px; }
+      .phone { width: 31%; min-width: 0; padding: 8px; }
+      footer nav { gap: 14px; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary navigation">
+      <div class="nav-left">
+        <a class="brand" href="https://www.mureka.ai/" aria-label="Mureka home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 17V7l7 6 7-6v10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Mureka
+        </a>
+        <div class="nav-links">
+          <a class="nav-link" href="./explore.html" data-i18n="explore">Explore</a>
+          <a class="nav-link" href="https://www.mureka.ai/knowledge_en" data-i18n="learn">Learn</a>
+          <a class="nav-link" href="#top" aria-current="page" data-i18n="releaseNotes">Release Notes</a>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="langButton" class="icon-button" type="button" aria-label="Change language" title="Language" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 12h17M12 3c2.2 2.4 3.3 5.4 3.3 9S14.2 18.6 12 21c-2.2-2.4-3.3-5.4-3.3-9S9.8 5.4 12 3Z" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+        <div id="langMenu" class="lang-menu" hidden><button class="lang-option" type="button" data-lang="en">English</button><button class="lang-option" type="button" data-lang="zh">简体中文</button></div>
+        <a class="primary-button" href="https://www.mureka.ai/create" data-i18n="create">Create music</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow" data-i18n="productReleases">Product releases</p>
+        <h1 id="page-title" data-i18n="releaseNotes">Release Notes</h1>
+      </div>
+      <p class="hero-copy" data-i18n="heroCopy">New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.</p>
+    </section>
+
+    <div class="controls-wrap">
+      <div class="controls">
+        <label class="search">
+          <span class="sr-only" hidden>Search updates</span>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="6.8" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <input id="searchInput" type="search" placeholder="Search updates" autocomplete="off">
+          <button id="clearSearch" class="clear-search" type="button" aria-label="Clear search" hidden>×</button>
+        </label>
+        <button id="filterToggle" class="filter-button" type="button" aria-expanded="false" aria-controls="filterPanel">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M7 12h10M10 17h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span data-i18n="filter">Filter</span>
+        </button>
+        <span id="resultCount" class="result-count" aria-live="polite"></span>
+      </div>
+      <div id="filterPanel" class="filter-panel" hidden>
+        <button class="chip" type="button" data-filter="all" aria-pressed="true" data-i18n="all">All</button>
+        <button class="chip" type="button" data-filter="new feature" aria-pressed="false" data-i18n="newFeature">New feature</button>
+        <button class="chip" type="button" data-filter="improvement" aria-pressed="false" data-i18n="improvement">Improvement</button>
+        <button class="chip" type="button" data-filter="music model" aria-pressed="false" data-i18n="musicModel">Music model</button>
+        <button class="chip" type="button" data-filter="web" aria-pressed="false">Web</button>
+        <button class="chip" type="button" data-filter="ios" aria-pressed="false">iOS</button>
+        <button class="chip" type="button" data-filter="android" aria-pressed="false">Android</button>
+        <button class="chip" type="button" data-filter="studio" aria-pressed="false">Studio</button>
+      </div>
+    </div>
+
+    <section id="releaseFeed" class="feed" aria-label="Mureka release notes">
+      <article class="release" id="mureka-co" data-tags="new feature web studio" data-search="mureka co desktop ai music agent studio daw prompt workflow create production">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#mureka-co">Meet Mureka Co, your AI music agent</a></h2>
+            <time class="date" datetime="2026-08-12">August 12, 2026</time>
+            <div class="tags"><span class="tag feature">New feature</span><span class="tag">Web</span><span class="tag">Studio</span></div>
+          </header>
+          <div class="release-body">
+            <p>Mureka Co brings your music workflow into one conversation. Describe what you want to make, revise, or arrange, and Co helps turn the request into an editable project.</p>
+            <ul>
+              <li><strong>Create from an idea:</strong> Start with a mood, story, reference, or production direction.</li>
+              <li><strong>Work across the project:</strong> Ask for arrangement changes, new sections, or alternate instrumentation.</li>
+              <li><strong>Stay in control:</strong> Continue refining the result in your existing Mureka workflow.</li>
+            </ul>
+            <p>Mureka Co is included in Pro plans and is available on desktop.</p>
+            <a class="text-link" href="https://www.mureka.ai/mureka-desktop">Explore Mureka Co <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="media" role="img" aria-label="Abstract audio waveform representing Mureka Co">
+              <div class="media-grid"><div class="media-copy"><span class="media-label">Mureka Co</span><b>One prompt.<br>Every music tool.</b></div><div class="wave-field"></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="mureka-9-5" data-tags="new feature music model web ios android" data-search="mureka 9.5 model latest release music generation audio quality vocals prompt adherence arrangement web ios android">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#mureka-9-5">Introducing Mureka 9.5</a></h2>
+            <time class="date" datetime="2026-08-10">August 10, 2026</time>
+            <div class="tags"><span class="tag feature">New feature</span><span class="tag">Music model</span><span class="tag">Web</span><span class="tag">iOS</span><span class="tag">Android</span></div>
+          </header>
+          <div class="release-body">
+            <p>Mureka 9.5 is our latest music generation model, delivering more polished results and more reliable creative control from the first prompt to the final song.</p>
+            <ul>
+              <li><strong>More natural vocals:</strong> Clearer phrasing, smoother transitions, and more expressive performances.</li>
+              <li><strong>Better prompt understanding:</strong> More accurate responses to genre, mood, instrumentation, and production instructions.</li>
+              <li><strong>Stronger song structure:</strong> More coherent sections and transitions across complete songs.</li>
+              <li><strong>Improved audio quality:</strong> Cleaner, more balanced generations across a wider range of musical styles.</li>
+            </ul>
+            <p>Mureka 9.5 is now available across Web, iOS, and Android.</p>
+            <a class="text-link" href="https://www.mureka.ai/create">Create with Mureka 9.5 <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="music-editor" data-tags="new feature web studio" data-search="music editor multitrack timeline stems vocals instrumental arrange edit studio web">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#music-editor">A more powerful AI Music Editor</a></h2>
+            <time class="date" datetime="2026-07-24">July 24, 2026</time>
+            <div class="tags"><span class="tag feature">New feature</span><span class="tag">Web</span><span class="tag">Studio</span></div>
+          </header>
+          <div class="release-body">
+            <p>Shape generated songs with more precision in Mureka's browser-based music editor. The updated workspace makes it easier to move from a first generation to a finished arrangement.</p>
+            <h3>More control, less repetition</h3>
+            <ul>
+              <li><strong>Section-level editing:</strong> Rework the part that needs attention without restarting the whole track.</li>
+              <li><strong>Stem-based workflow:</strong> Separate vocals and instruments for faster arrangement decisions.</li>
+              <li><strong>Familiar timeline:</strong> Review song structure and keep creative changes in context.</li>
+            </ul>
+            <a class="text-link" href="https://www.mureka.ai/editor">Open Music Editor <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <div class="media studio-preview" role="img" aria-label="Mureka multitrack music editor preview">
+              <div class="studio-toolbar"><span class="studio-dot"></span><span class="studio-dot"></span><span class="studio-dot"></span></div>
+              <div class="studio-tracks"><div class="track"><span class="track-name">Vocals</span><div class="track-wave"></div></div><div class="track"><span class="track-name">Drums</span><div class="track-wave"></div></div><div class="track"><span class="track-name">Bass</span><div class="track-wave"></div></div><div class="track"><span class="track-name">Synth</span><div class="track-wave"></div></div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="voice-generator" data-tags="new feature web music model" data-search="ai voice music generator vocal singing voice multilingual lyrics melody web model">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#voice-generator">Create songs with new AI voices</a></h2>
+            <time class="date" datetime="2026-06-30">June 30, 2026</time>
+            <div class="tags"><span class="tag feature">New feature</span><span class="tag">Music model</span><span class="tag">Web</span></div>
+          </header>
+          <div class="release-body">
+            <p>Explore a broader range of vocal characters for demos, original songs, and creative experiments. New voice options give you more ways to match the performance to your lyrics and genre.</p>
+            <ul>
+              <li><strong>More vocal colors:</strong> Choose voices that better fit the emotion and energy of your song.</li>
+              <li><strong>Clearer delivery:</strong> Improved pronunciation and phrasing across supported languages.</li>
+              <li><strong>Faster exploration:</strong> Compare creative directions before committing to a final version.</li>
+            </ul>
+            <a class="text-link" href="https://www.mureka.ai/tools/ai-voice-music-generator.html">Try AI Voice Music Generator <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="mobile-create" data-tags="improvement ios android" data-search="mobile app ios android create music workflow interface generation phone library">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#mobile-create">A faster creation flow on mobile</a></h2>
+            <time class="date" datetime="2026-06-06">June 6, 2026</time>
+            <div class="tags"><span class="tag">Improvement</span><span class="tag">iOS</span><span class="tag">Android</span></div>
+          </header>
+          <div class="release-body">
+            <p>The latest Mureka app update simplifies the path from idea to song. Prompts, lyrics, styles, and recent projects are easier to reach when inspiration happens away from your desk.</p>
+            <ul>
+              <li><strong>Cleaner creation form</strong> with a clearer visual hierarchy.</li>
+              <li><strong>Recent settings remembered</strong> for quicker iteration.</li>
+              <li><strong>Improved project access</strong> from the mobile library.</li>
+            </ul>
+            <p>Update Mureka from the App Store or Google Play to use the latest experience.</p>
+            <div class="media mobile-preview" role="img" aria-label="Three mobile screens showing the Mureka creation flow">
+              <div class="phone"><div class="phone-speaker"></div><div class="phone-art"></div><div class="phone-line"></div><div class="phone-line short"></div><div class="phone-button">Start creating</div></div>
+              <div class="phone"><div class="phone-speaker"></div><div class="phone-art"></div><div class="phone-line"></div><div class="phone-line short"></div><div class="phone-button">Generate song</div></div>
+              <div class="phone"><div class="phone-speaker"></div><div class="phone-art"></div><div class="phone-line"></div><div class="phone-line short"></div><div class="phone-button">Play result</div></div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="release" id="model-quality" data-tags="improvement music model web ios android" data-search="music model quality vocals arrangement prompt adherence sound audio improvement web ios android">
+        <div class="release-inner">
+          <header>
+            <h2 class="release-title"><a href="#model-quality">Music generation quality improvements</a></h2>
+            <time class="date" datetime="2026-05-16">May 16, 2026</time>
+            <div class="tags"><span class="tag">Improvement</span><span class="tag">Music model</span><span class="tag">Web</span><span class="tag">iOS</span><span class="tag">Android</span></div>
+          </header>
+          <div class="release-body">
+            <p>We shipped a series of improvements to make generated songs more coherent and easier to direct across genres.</p>
+            <ul>
+              <li><strong>Stronger prompt adherence</strong> for instruments, moods, and arrangement instructions.</li>
+              <li><strong>More natural vocals</strong> with clearer phrasing and smoother transitions.</li>
+              <li><strong>More stable song structure</strong> across longer generations.</li>
+              <li><strong>Cleaner mixes</strong> with improved balance between vocals and instrumentation.</li>
+            </ul>
+            <a class="text-link" href="https://www.mureka.ai/create">Create with Mureka <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14m-5-5 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="emptyState" class="empty" hidden>
+      <h2 data-i18n="noUpdates">No updates found</h2>
+      <p data-i18n="emptyHint">Try a different search or clear the selected filter.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>© 2026 Mureka. All rights reserved.</span>
+    <nav aria-label="Footer navigation"><a href="https://www.mureka.ai/about">About</a><a href="https://www.mureka.ai/faq">FAQ</a><a href="https://www.mureka.ai/knowledge_en">Knowledge</a><a href="https://platform.mureka.ai/">API</a></nav>
+  </footer>
+
+  <script>
+    const searchInput = document.querySelector('#searchInput');
+    const clearSearch = document.querySelector('#clearSearch');
+    const filterToggle = document.querySelector('#filterToggle');
+    const filterPanel = document.querySelector('#filterPanel');
+    const chips = [...document.querySelectorAll('.chip')];
+    const releases = [...document.querySelectorAll('.release')];
+    const resultCount = document.querySelector('#resultCount');
+    const emptyState = document.querySelector('#emptyState');
+    let activeFilter = 'all';
+    let currentLanguage = localStorage.getItem('mureka-language') || 'en';
+    const interfaceCopy = {
+      en: { explore: 'Explore', learn: 'Learn', releaseNotes: 'Release Notes', create: 'Create music', productReleases: 'Product releases', heroCopy: 'New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.', filter: 'Filter', all: 'All', newFeature: 'New feature', improvement: 'Improvement', musicModel: 'Music model', noUpdates: 'No updates found', emptyHint: 'Try a different search or clear the selected filter.', search: 'Search updates' },
+      zh: { explore: '探索', learn: '学习中心', releaseNotes: '版本更新', create: '创作音乐', productReleases: '产品更新', heroCopy: '了解 Mureka 创作、编辑与分享音乐的最新能力，包括模型升级、工作流优化和多端产品更新。', filter: '筛选', all: '全部', newFeature: '新功能', improvement: '体验优化', musicModel: '音乐模型', noUpdates: '没有找到更新', emptyHint: '请尝试其他关键词或清除当前筛选条件。', search: '搜索更新' }
+    };
+    const releaseChinese = [
+      { title: '认识 Mureka Co：你的 AI 音乐智能体', paragraphs: ['Mureka Co 将音乐创作工作流整合进一次对话。描述你想创作、修改或编排的内容，Co 会帮助你将需求转化为可编辑的项目。','Mureka Co 已包含在 Pro 方案中，目前可在桌面端使用。'], items: ['<strong>从一个想法开始：</strong>使用情绪、故事、参考作品或制作方向开启创作。','<strong>操作整个项目：</strong>通过对话调整编曲、增加新段落或替换乐器。','<strong>保持创作控制：</strong>在现有 Mureka 工作流中继续细化结果。'], link: '探索 Mureka Co' },
+      { title: 'Mureka 9.5 正式发布', paragraphs: ['Mureka 9.5 是最新一代音乐生成模型，从首次输入提示词到完成整首歌曲，都能提供更成熟的生成效果和更稳定的创作控制。','Mureka 9.5 现已在 Web、iOS 和 Android 上线。'], items: ['<strong>更自然的人声：</strong>乐句更清晰、过渡更顺畅，演唱表现更具感染力。','<strong>更准确理解提示词：</strong>更好执行曲风、情绪、乐器和制作方向。','<strong>更完整的歌曲结构：</strong>歌曲段落与过渡更加连贯。','<strong>更好的音质：</strong>在更多音乐风格中获得更干净、平衡的生成结果。'], link: '使用 Mureka 9.5 创作' },
+      { title: '更强大的 AI 音乐编辑器', paragraphs: ['在 Mureka 浏览器音乐编辑器中更精确地调整生成歌曲。新版工作区让你更容易从首次生成推进到完整编曲。'], heading: '更多控制，减少重复工作', items: ['<strong>段落级编辑：</strong>只重做需要调整的部分，无需重新生成整首歌。','<strong>分轨工作流：</strong>分离人声和乐器，更快做出编曲决策。','<strong>熟悉的时间轴：</strong>查看歌曲结构，并在完整上下文中完成修改。'], link: '打开音乐编辑器' },
+      { title: '使用全新 AI 人声创作歌曲', paragraphs: ['为 Demo、原创歌曲和创意实验探索更丰富的人声选择，让演唱表现更贴合歌词和曲风。'], items: ['<strong>更多人声风格：</strong>选择更符合歌曲情绪和能量的人声。','<strong>更清晰的演唱：</strong>提升支持语言的发音与乐句表现。','<strong>更快探索方向：</strong>在确定最终版本前比较不同创意方案。'], link: '体验 AI 人声音 generator' },
+      { title: '更高效的移动端创作流程', paragraphs: ['最新 Mureka App 简化了从灵感到成歌的流程。提示词、歌词、曲风和最近项目在移动端更容易访问。','请在 App Store 或 Google Play 更新 Mureka，体验最新版本。'], items: ['<strong>更清晰的创作表单</strong>，强化信息层级。','<strong>记住最近使用的设置</strong>，便于快速迭代。','<strong>优化项目入口</strong>，更方便从移动端曲库继续创作。'] },
+      { title: '音乐生成质量全面提升', paragraphs: ['我们对音乐模型进行了多项升级，让不同曲风的生成结果更连贯，也更容易按照要求控制。'], items: ['<strong>更准确理解提示词</strong>，更好执行乐器、情绪与编曲要求。','<strong>更自然的人声</strong>，乐句更清晰、过渡更顺畅。','<strong>更稳定的歌曲结构</strong>，提升长歌曲生成表现。','<strong>更干净的混音</strong>，改善人声与伴奏之间的平衡。'], link: '使用 Mureka 创作' }
+    ];
+
+    releases.forEach((release) => {
+      release.querySelectorAll('.release-title a, .release-body p, .release-body h3, .release-body li, .text-link').forEach((element) => { element.dataset.enHtml = element.innerHTML; });
+    });
+
+    function setLanguage(language) {
+      currentLanguage = language;
+      localStorage.setItem('mureka-language', language);
+      document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
+      document.querySelectorAll('[data-i18n]').forEach((element) => { element.textContent = interfaceCopy[language][element.dataset.i18n]; });
+      searchInput.placeholder = interfaceCopy[language].search;
+      releases.forEach((release, index) => {
+        const fields = releaseChinese[index];
+        const title = release.querySelector('.release-title a');
+        const paragraphs = [...release.querySelectorAll('.release-body > p')];
+        const heading = release.querySelector('.release-body h3');
+        const items = [...release.querySelectorAll('.release-body li')];
+        const link = release.querySelector('.text-link');
+        if (language === 'zh') {
+          title.textContent = fields.title;
+          paragraphs.forEach((paragraph, itemIndex) => { if (fields.paragraphs[itemIndex]) paragraph.textContent = fields.paragraphs[itemIndex]; });
+          if (heading && fields.heading) heading.textContent = fields.heading;
+          items.forEach((item, itemIndex) => { if (fields.items[itemIndex]) item.innerHTML = fields.items[itemIndex]; });
+          if (link && fields.link) { const svg = link.querySelector('svg').outerHTML; link.innerHTML = `${fields.link} ${svg}`; }
+        } else {
+          [title, ...paragraphs, ...(heading ? [heading] : []), ...items, ...(link ? [link] : [])].forEach((element) => { if (element.dataset.enHtml) element.innerHTML = element.dataset.enHtml; });
+        }
+      });
+      document.querySelectorAll('.lang-option').forEach((button) => button.setAttribute('aria-current', String(button.dataset.lang === language)));
+      langMenu.hidden = true;
+      langButton.setAttribute('aria-expanded', 'false');
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      releases.forEach((release) => {
+        const matchesQuery = !query || `${release.dataset.search} ${release.textContent}`.toLowerCase().includes(query);
+        const tags = release.dataset.tags.split(' ');
+        const matchesFilter = activeFilter === 'all' || release.dataset.tags.includes(activeFilter);
+        const show = matchesQuery && matchesFilter;
+        release.hidden = !show;
+        visible += Number(show);
+      });
+
+      clearSearch.hidden = !query;
+      resultCount.textContent = currentLanguage === 'zh' ? `${visible} 条更新` : `${visible} update${visible === 1 ? '' : 's'}`;
+      emptyState.hidden = visible !== 0;
+      filterToggle.dataset.active = String(activeFilter !== 'all');
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      searchInput.focus();
+      applyFilters();
+    });
+
+    filterToggle.addEventListener('click', () => {
+      const isOpen = filterToggle.getAttribute('aria-expanded') === 'true';
+      filterToggle.setAttribute('aria-expanded', String(!isOpen));
+      filterPanel.hidden = isOpen;
+    });
+
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        activeFilter = chip.dataset.filter;
+        chips.forEach((item) => item.setAttribute('aria-pressed', String(item === chip)));
+        applyFilters();
+      });
+    });
+
+    langButton.addEventListener('click', () => {
+      langMenu.hidden = !langMenu.hidden;
+      langButton.setAttribute('aria-expanded', String(!langMenu.hidden));
+    });
+    document.querySelectorAll('.lang-option').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+
+    setLanguage(currentLanguage);
+  </script>
+</body>
+</html>
