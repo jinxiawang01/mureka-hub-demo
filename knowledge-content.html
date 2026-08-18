@@ -55,21 +55,12 @@ a {
   height: 100vh;
   box-sizing: border-box;
   width: var(--mk-sidebar-width);
-  padding: 24px 0;
+  padding: 12px 0 24px;
   flex: 0 0 var(--mk-sidebar-width);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: width 0.2s ease, flex-basis 0.2s ease;
-}
-.mk-sidebar-header {
-  height: 28px;
-  padding: 0 12px 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-bottom: 24px;
 }
 .mk-logo {
   height: 28px;
@@ -94,41 +85,6 @@ a {
   font-weight: 700;
   letter-spacing: 0;
   white-space: nowrap;
-}
-.mk-sidebar-toggle {
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  border: 0;
-  border-radius: 6px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 0;
-  flex: 0 0 16px;
-  opacity: 0.6;
-  background: transparent;
-  color: var(--mk-text-primary);
-  cursor: pointer;
-  transition: opacity 0.2s, background 0.2s;
-}
-.mk-sidebar-toggle svg {
-  width: 16px;
-  height: 16px;
-  display: block;
-}
-.mk-sidebar-toggle:hover,
-.mk-sidebar-toggle:focus-visible {
-  opacity: 1;
-  background: var(--mk-text-muted);
-}
-.mk-sidebar-toggle:focus-visible {
-  outline: 1px solid var(--mk-accent);
-  outline-offset: 2px;
-}
-.mk-page--sidebar-collapsed .mk-sidebar-header {
-  justify-content: center;
-  padding: 0;
 }
 .mk-page--sidebar-collapsed .mk-logo {
   display: none;
@@ -417,9 +373,6 @@ a {
 <body>
   <div class="mk-page">
     <aside class="mk-sidebar">
-      <div class="mk-sidebar-header">
-        <button class="mk-sidebar-toggle header-left-toggle fe-icon" type="button" aria-label="Toggle navigation" aria-expanded="true" data-sidebar-toggle><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M7.955 8.45v7.1M7.45 4.9H7A4.1 4.1 0 0 0 2.9 9v6A4.1 4.1 0 0 0 7 19.1h10a4.1 4.1 0 0 0 4.1-4.1V9A4.1 4.1 0 0 0 17 4.9z"/></svg></button>
-      </div>
       <nav class="mk-nav" aria-label="Knowledge navigation">
       <div class="mk-nav-group" data-nav-group="create-music">
         <div class="mk-nav-row mk-nav-row--level1" data-section-id="create-music"><a class="mk-nav-link" href="#create-music"><span class="mk-nav-item mk-nav-item--active">Create Music</span></a><button class="mk-nav-caret" type="button" aria-label="Toggle Create Music" aria-expanded="true" data-nav-toggle="create-music"></button></div>
@@ -1497,7 +1450,6 @@ a {
   }
 
   setupNavGroups();
-  setupSidebarToggle();
 
   function setupNavGroups() {
     document.querySelectorAll("[data-nav-toggle]").forEach((toggle) => {
@@ -1513,17 +1465,6 @@ a {
     });
   }
 
-  function setupSidebarToggle() {
-    const page = document.querySelector(".mk-page");
-    const toggle = document.querySelector("[data-sidebar-toggle]");
-    if (!page || !toggle) {
-      return;
-    }
-    toggle.addEventListener("click", () => {
-      const collapsed = page.classList.toggle("mk-page--sidebar-collapsed");
-      toggle.setAttribute("aria-expanded", String(!collapsed));
-    });
-  }
 })();
   </script>
 </body>
