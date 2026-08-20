@@ -489,8 +489,8 @@
       <div class="nav-left">
         <a class="brand" href="https://www.mureka.ai/" aria-label="Mureka home"><img class="brand-logo" src="./assets/mureka-logo.png" alt="Mureka"></a>
         <div class="nav-links">
-          <a class="nav-link" href="./index.html" data-i18n="explore">Hub</a>
-          <a class="nav-link" href="#top" aria-current="page" data-i18n="releaseNotes">Release Notes</a>
+          <a class="nav-link" href="./index.html" data-i18n="explore">Blog</a>
+          <a class="nav-link" href="#top" aria-current="page" data-i18n="releaseNotes">What's new</a>
           <a class="nav-link" href="./index.html#knowledge" data-i18n="knowledge">Knowledge</a>
         </div>
       </div>
@@ -508,7 +508,7 @@
     <section class="hero" aria-labelledby="page-title">
       <div>
         <p class="eyebrow" data-i18n="productReleases">Product releases</p>
-        <h1 id="page-title" data-i18n="releaseNotes">Release Notes</h1>
+        <h1 id="page-title" data-i18n="releaseNotes">What's new</h1>
       </div>
       <p class="hero-copy" data-i18n="heroCopy">New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.</p>
     </section>
@@ -679,7 +679,6 @@
 
   <footer>
     <span>© 2026 Mureka. All rights reserved.</span>
-    <nav aria-label="Footer navigation"><a href="https://www.mureka.ai/about">About</a><a href="https://www.mureka.ai/faq">FAQ</a><a href="https://platform.mureka.ai/">API</a></nav>
   </footer>
 
   <script>
@@ -693,8 +692,8 @@
     let activeFilter = 'all';
     let currentLanguage = localStorage.getItem('mureka-language') || 'en';
     const interfaceCopy = {
-      en: { explore: 'Hub', knowledge: 'Knowledge', releaseNotes: 'Release Notes', create: 'Create music', productReleases: 'Product releases', heroCopy: 'New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.', filter: 'Filter', all: 'All', newFeature: 'New feature', improvement: 'Improvement', musicModel: 'Music model', noUpdates: 'No updates found', emptyHint: 'Try a different search or clear the selected filter.', search: 'Search updates' },
-      zh: { explore: 'Hub', knowledge: '知识库', releaseNotes: '版本更新', create: '创作音乐', productReleases: '产品更新', heroCopy: '了解 Mureka 创作、编辑与分享音乐的最新能力，包括模型升级、工作流优化和多端产品更新。', filter: '筛选', all: '全部', newFeature: '新功能', improvement: '体验优化', musicModel: '音乐模型', noUpdates: '没有找到更新', emptyHint: '请尝试其他关键词或清除当前筛选条件。', search: '搜索更新' }
+      en: { explore: 'Blog', knowledge: 'Knowledge', releaseNotes: "What's new", create: 'Create music', productReleases: 'Product releases', heroCopy: 'New ways to create, shape, and share music with Mureka. Follow every model release, workflow improvement, and platform update.', filter: 'Filter', all: 'All', newFeature: 'New feature', improvement: 'Improvement', musicModel: 'Music model', noUpdates: 'No updates found', emptyHint: 'Try a different search or clear the selected filter.', search: 'Search updates' },
+      zh: { explore: '博客', knowledge: '知识库', releaseNotes: '最新动态', create: '创作音乐', productReleases: '产品更新', heroCopy: '了解 Mureka 创作、编辑与分享音乐的最新能力，包括模型升级、工作流优化和多端产品更新。', filter: '筛选', all: '全部', newFeature: '新功能', improvement: '体验优化', musicModel: '音乐模型', noUpdates: '没有找到更新', emptyHint: '请尝试其他关键词或清除当前筛选条件。', search: '搜索更新' }
     };
     const releaseChinese = [
       { title: '认识 Mureka Co：你的 AI 音乐智能体', paragraphs: ['Mureka Co 将音乐创作工作流整合进一次对话。描述你想创作、修改或编排的内容，Co 会帮助你将需求转化为可编辑的项目。','Mureka Co 已包含在 Pro 方案中，目前可在桌面端使用。'], items: ['<strong>从一个想法开始：</strong>使用情绪、故事、参考作品或制作方向开启创作。','<strong>操作整个项目：</strong>通过对话调整编曲、增加新段落或替换乐器。','<strong>保持创作控制：</strong>在现有 Mureka 工作流中继续细化结果。'], link: '探索 Mureka Co' },
